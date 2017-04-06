@@ -11,6 +11,18 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+$app->get('/', ['uses' => 'IndexController@index']);
+
+$app->get('/links/{link}', ['uses' => 'LinkController@show']);
+
+// Api
+$app->group(['namespace' => 'Api', 'prefix' => 'api'], function () use ($app) {
+    // version 1
+    $app->group(['namespace' => 'V1', 'prefix' => 'v1'], function () use ($app) {
+        $app->get('/links', ['uses' => 'LinkController@index']);
+        $app->post('/links', ['uses' => 'LinkController@store']);
+        $app->get('/links/{id}', ['uses' => 'LinkController@show']);
+        $app->put('/links/{id}', ['uses' => 'LinkController@update']);
+        $app->delete('/links/{id}', ['uses' => 'LinkController@destroy']);
+    });
 });
