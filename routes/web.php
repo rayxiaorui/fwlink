@@ -11,8 +11,6 @@
 |
 */
 
-$app->get('/', ['uses' => 'IndexController@index']);
-
 $app->get('/links/{link}', ['uses' => 'LinkController@show']);
 
 // Api
